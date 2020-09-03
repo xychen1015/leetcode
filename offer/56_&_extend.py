@@ -3,7 +3,6 @@
 # @Author : cxy 
 # @File : 56_&_extend.py 
 # @desc:
-### 260：除了两个数字出现一次，其他都出现了两次，让我们找到这个两个数。
 
 """
 136：除了一个数字出现一次，其他都出现了两次，让我们找到出现一次的数。
@@ -26,4 +25,22 @@ class Solution:
         return (3*s_set-s)//2
 
 # 方法二：二进制+位运算。统计32位各个位的1的个数上能被3整除的位置
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        ans=0
+        for i in range(32):
+            cnt=0
+            cur=1<<i
+            for n in nums:
+                if n&cur: cnt+=1
+            if cnt%3: ans|=cur
+        return ans if ans<2**32 else ans-2**32
+
+"""
+# 260：除了两个数字出现一次，其他都出现了两次，让我们找到这个两个数。
+分组做异或，如果两组得到的结果都不为0,则最后结果就是两组异或的结果
+如果有一组为0,另一组不为0,则两个数字出现在不为0的那一组
+"""
+
+
 
