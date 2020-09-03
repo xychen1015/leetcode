@@ -41,6 +41,28 @@ class Solution:
 分组做异或，如果两组得到的结果都不为0,则最后结果就是两组异或的结果
 如果有一组为0,另一组不为0,则两个数字出现在不为0的那一组
 """
-
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        zero_counts = 0
+        ans = 0
+        for n in nums:
+            ans ^= n
+            if not n: zero_counts += 1
+        if zero_counts == 1: return [ans, 0]
+        l, r = min(nums), max(nums)     # 按数值的大小分为两组，大于等于mid的为一组，小于mid的为一组
+        while l <= r:
+            mid = (l + r) // 2
+            left = right = 0
+            for n in nums:
+                if n < mid:
+                    left ^= n
+                else:
+                    right ^= n
+            if right and left:
+                return [left, right]
+            elif not left and right:
+                l = mid + 1
+            else:
+                r = mid - 1
 
 
